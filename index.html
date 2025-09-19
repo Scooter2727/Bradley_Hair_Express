@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bradley Hair Express</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <img src="assets/logo.png" alt="Logo" class="logo">
+                <img src="assets/logo_title.png" alt="Logo Title" class="logo-title">
+            </div>
+            <ul class="nav__menu">
+                <li><a href="#home" class="nav__link">About Us</a></li>
+                <li><a href="#home" class="nav__link">Our Services</a></li>
+                <li><a href="#contact" class="nav__link">Contact Us</a></li>
+                <li><a href="#contact" class="nav__link">Booking</a></li>
+            </ul>
+            <div class="nav__toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero__content">
+                <h2 class="hero__headline">About Bradley Hair Express</h2>
+                <p class="hero__subtext hero__subtext--p1">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</p>
+                <p class="hero__subtext hero__subtext--p2">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."</p>
+                <button class="hero__cta" type="button">
+                    <span class="hero__cta-text">Learn More</span>
+                </button>
+            </div>
+            <div class="hero__image">
+                <img src="assets/Bradley.png" 
+                     alt="Bradley" 
+                     class="hero__img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="contact__heading">Contact Us</h2>
+            <iframe class="contact__map" src="https://www.google.com/maps?q=1401+Ernest+Ave,+London,+ON+N6E+2P6&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="contact__box"></div>
+            <div class="contact__box-2"></div>
+            <div class="contact__box-3"></div>
+            <div class="contact__box-4"></div>
+            <label class="contact__label-first">First Name</label>
+            <label class="contact__label-last">Last Name</label>
+            <label class="contact__label-message">Let us know what we can help with</label>
+                <input type="text" class="contact__input contact__input-first" placeholder="First Name">
+                <input type="text" class="contact__input contact__input-last" placeholder="Last Name">
+                <textarea class="contact__textarea contact__textarea-message" placeholder="Let us know what we can help with"></textarea>
+            <button class="contact__button" type="button">Contact Bradley Hair Express</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="site-footer-text">© 2025 Bradley Hair Express. All Rights Reserved</div>
+        </div>
+    </footer>
+    
+    <script src="scripts/main.js"></script>
+</body>
+</html>
