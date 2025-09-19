@@ -1,4 +1,4 @@
-// Main JavaScript file for Figma Coding Challenge
+// Main JavaScript file for Figma Coding Challenge - Updated for smooth scrolling
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -26,8 +26,11 @@ function initializeApp() {
     if (headlineEl) {
         typeTextIntoElement(headlineEl, { typingSpeedMs: 50, startDelayMs: 300, endHoldMs: 1200, loop: false });
     }
-    // Example: Add mobile menu toggle if needed
-    // addMobileMenuToggle();
+    // Add mobile menu toggle functionality
+    addMobileMenuToggle();
+    
+    // Add button click state handling
+    addButtonClickHandling();
 }
 
 /**
@@ -50,10 +53,45 @@ function addSmoothScrolling() {
             
             if (targetElement) {
                 console.log('Scrolling to element...');
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                
+                // Get the header height to offset the scroll position
+                const header = document.querySelector('.header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                
+                // Calculate the target position with header offset
+                let targetPosition;
+                
+                // Special handling for contact section - scroll to bottom of screen
+                if (targetId === '#contact') {
+                    // Scroll to the bottom of the document to show the full contact section
+                    targetPosition = document.documentElement.scrollHeight - window.innerHeight;
+                } else {
+                    targetPosition = targetElement.offsetTop - headerHeight - 20; // 20px extra padding for other sections
+                }
+                
+                // Use a more reliable smooth scrolling approach
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                const duration = 800; // 800ms animation
+                let start = null;
+                
+                function animation(currentTime) {
+                    if (start === null) start = currentTime;
+                    const timeElapsed = currentTime - start;
+                    const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+                    window.scrollTo(0, run);
+                    if (timeElapsed < duration) requestAnimationFrame(animation);
+                }
+                
+                // Easing function for smooth animation
+                function easeInOutQuad(t, b, c, d) {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t + b;
+                    t--;
+                    return -c / 2 * (t * (t - 2) - 1) + b;
+                }
+                
+                requestAnimationFrame(animation);
             } else {
                 console.log('Target element not found for:', targetId);
             }
@@ -129,6 +167,7 @@ window.FigmaChallenge = {
     initializeApp,
     addSmoothScrolling,
     addNavbarScrollBehavior,
+    addMobileMenuToggle,
     debounce,
     isInViewport
 };
@@ -181,4 +220,113 @@ function typeTextIntoElement(element, {
     }
 
     setTimeout(typeNext, startDelayMs);
+}
+
+/**
+ * Add mobile menu toggle functionality
+ */
+function addMobileMenuToggle() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav__link');
+    
+    if (!navToggle || !navMenu) {
+        console.log('Mobile menu elements not found');
+        return;
+    }
+    
+    // Toggle menu when hamburger is clicked
+    navToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        navToggle.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close menu when clicking on a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    console.log('Mobile menu toggle initialized');
+}
+
+/**
+ * Add proper button click state handling
+ */
+function addButtonClickHandling() {
+    // Get all buttons
+    const buttons = document.querySelectorAll('button, .btn, .contact__button, .hero__cta');
+    
+    buttons.forEach(button => {
+        // Add click event listener
+        button.addEventListener('click', function(e) {
+            // Remove any existing active classes
+            this.classList.remove('active', 'clicked');
+            
+            // Add temporary clicked class for visual feedback
+            this.classList.add('clicked');
+            
+            // Remove clicked class after a short delay
+            setTimeout(() => {
+                this.classList.remove('clicked');
+                // Also remove focus to prevent persistent active state
+                this.blur();
+            }, 150);
+        });
+        
+        // Handle mouse leave to ensure button returns to normal state
+        button.addEventListener('mouseleave', function() {
+            this.classList.remove('active', 'clicked');
+            this.blur();
+        });
+        
+        // Handle touch end for mobile devices
+        button.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            this.classList.remove('active', 'clicked');
+            
+            // Trigger the click event
+            this.click();
+            
+            // Remove focus after click
+            setTimeout(() => {
+                this.blur();
+            }, 100);
+        });
+    });
+    
+    console.log('Button click handling initialized');
 }
