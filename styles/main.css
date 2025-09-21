@@ -1,0 +1,1728 @@
+/* ========================================
+   FIGMA CODING CHALLENGE - MAIN STYLES
+   ======================================== */
+
+/* ========================================
+   CSS RESET & BASE STYLES
+   ======================================== */
+
+/* Reset all default margins, padding, and box-sizing */
+/* Universal selector (*) removes browser default styles */
+* {
+    margin: 0;           /* Remove default margins */
+    padding: 0;          /* Remove default padding */
+    box-sizing: border-box; /* Include border and padding in element's total width/height */
+}
+
+/* Base HTML styles with smooth scrolling */
+/* Root element styling for consistent font sizing and scroll behavior */
+html {
+    font-size: 16px;                    /* Base font size for rem calculations */
+    scroll-behavior: smooth;            /* Smooth scrolling for anchor links */
+    scroll-padding-top: 200px;          /* Account for fixed header height during smooth scrolling */
+}
+
+/* Base body styles */
+/* Main document styling with system font stack and basic typography */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; /* System font stack for optimal performance */
+    line-height: 1.6;      /* Improved readability with 1.6 line height */
+    color: #333;           /* Dark gray text color for good contrast */
+    background-color: #fff; /* White background */
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Container for consistent max-width and centering */
+/* Utility class for consistent page layout and content centering */
+.container {
+    max-width: 1200px;    /* Maximum width to prevent content from becoming too wide */
+    margin: 0 auto;       /* Center the container horizontally */
+    padding: 0 20px;      /* Add horizontal padding for mobile spacing */
+}
+
+/* Text alignment utilities */
+/* Utility class for centering text content */
+.text-center {
+    text-align: center;   /* Center-align text */
+}
+
+/* Margin utilities */
+/* Bottom margin utility classes for consistent spacing */
+.mb-1 { margin-bottom: 0.5rem; }  /* Small bottom margin (8px) */
+.mb-2 { margin-bottom: 1rem; }    /* Medium bottom margin (16px) */
+.mb-3 { margin-bottom: 1.5rem; }  /* Large bottom margin (24px) */
+.mb-4 { margin-bottom: 2rem; }    /* Extra large bottom margin (32px) */
+
+/* Top margin utility classes for consistent spacing */
+.mt-1 { margin-top: 0.5rem; }     /* Small top margin (8px) */
+.mt-2 { margin-top: 1rem; }       /* Medium top margin (16px) */
+.mt-3 { margin-top: 1.5rem; }     /* Large top margin (24px) */
+.mt-4 { margin-top: 2rem; }       /* Extra large top margin (32px) */
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Mobile responsive adjustments */
+/* Media query for tablet and mobile devices (768px and below) */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;  /* Reduce container padding for smaller screens */
+    }
+    
+    html {
+        font-size: 14px; /* Slightly smaller base font for mobile */
+    }
+}
+
+/* Small mobile responsive adjustments */
+/* Media query for small mobile devices (480px and below) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;  /* Minimal container padding for small screens */
+    }
+    
+    html {
+        font-size: 13px; /* Even smaller base font for small mobile */
+    }
+}
+
+/* ========================================
+   HEADER & NAVIGATION
+   ======================================== */
+
+/* Main header container */
+/* Fixed header that slides down from top on page load */
+.header {
+    background-color: #fff;        /* White background */
+    position: fixed;               /* Fixed positioning for sticky header */
+    top: -192px;                   /* Start above viewport for slide-down animation */
+    left: 0;                       /* Full width positioning */
+    right: 0;                      /* Full width positioning */
+    z-index: 1000;                 /* High z-index to stay above other content */
+    height: 192px;                 /* Initial header height */
+    transition: all 0.3s ease;     /* Smooth transitions for all properties */
+    animation: navbarSlideDown 1s ease-out 0.2s forwards; /* Slide down animation on load */
+}
+
+/* ========================================
+   ANIMATION KEYFRAMES
+   ======================================== */
+
+/* Navbar slide down animation on page load */
+/* Keyframe animation for header sliding down from above viewport */
+@keyframes navbarSlideDown {
+    0% {
+        top: -192px;    /* Start position: above viewport */
+        opacity: 0;     /* Start invisible */
+    }
+    100% {
+        top: 0;        /* End position: at top of viewport */
+        opacity: 1;    /* End visible */
+    }
+}
+
+/* ========================================
+   HEADER STATES
+   ======================================== */
+
+/* Header when scrolled (smaller height) */
+/* Scrolled state: smaller header with shadow for depth */
+.header.scrolled {
+    height: 80px;                              /* Reduced height when scrolled */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Navigation container */
+/* Flexbox container for navigation elements */
+.nav {
+    display: flex;                    /* Flexbox layout */
+    justify-content: space-between;   /* Space between logo and menu */
+    align-items: center;              /* Center items vertically */
+    padding: 0.5rem 0;               /* Vertical padding */
+    min-height: 100px;               /* Minimum height for proper spacing */
+}
+
+/* Logo styling */
+/* Main logo image with absolute positioning */
+.logo {
+    display: block;           /* Block display */
+    width: 227px;            /* Fixed width */
+    height: 162px;           /* Fixed height */
+    position: absolute;      /* Absolute positioning */
+    top: 30px;               /* Distance from top */
+    left: 90px;              /* Distance from left */
+    transform: rotate(0deg); /* No rotation */
+    opacity: 1;              /* Fully visible */
+    object-fit: contain;     /* Maintain aspect ratio */
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* Logo title styles */
+/* Alternative logo for scrolled state */
+.logo-title {
+    position: absolute;       /* Absolute positioning */
+    top: 30px;               /* Same position as main logo */
+    left: 90px;              /* Same position as main logo */
+    width: 227px;            /* Same dimensions as main logo */
+    height: 162px;           /* Same dimensions as main logo */
+    object-fit: contain;     /* Maintain aspect ratio */
+    opacity: 0;              /* Initially hidden */
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* Scrolled logo state */
+/* Hide main logo when header is scrolled */
+.header.scrolled .logo {
+    opacity: 0;              /* Fade out main logo */
+}
+
+/* Show logo title when scrolled */
+/* Show alternative logo and adjust size when header is scrolled */
+.header.scrolled .logo-title {
+    opacity: 1;              /* Fade in logo title */
+    top: -70px;              /* Adjust vertical position */
+    width: 300px;            /* Larger width for scrolled state */
+    height: 214px;           /* Larger height for scrolled state */
+    image-rendering: -webkit-optimize-contrast; /* Webkit image rendering */
+    image-rendering: crisp-edges;               /* Crisp edges rendering */
+    image-rendering: pixelated;                 /* Pixelated rendering */
+}
+
+/* Pull the navbar content further to the left edge */
+/* Remove left padding to allow logo to extend to edge */
+.header .container {
+    padding-left: 0;         /* No left padding for edge-to-edge logo */
+}
+
+/* Navigation menu */
+/* Flexbox menu container for navigation links */
+.nav__menu {
+    display: flex;        /* Flexbox layout */
+    list-style: none;    /* Remove default list styling */
+    gap: 3rem;           /* Space between menu items */
+}
+
+/* Navigation links */
+/* Individual navigation link styling */
+.nav__link {
+    text-decoration: none;    /* Remove underline */
+    color: #333;              /* Dark gray text */
+    font-weight: 600;         /* Semi-bold font weight */
+    font-size: 1.2rem;        /* Larger font size */
+    padding: 0.8rem 1.5rem;   /* Padding for clickable area */
+    border-radius: 8px;       /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth transitions */
+    position: absolute;       /* Absolute positioning */
+    top: 100px;               /* Distance from top */
+}
+
+/* Scrolled navigation state */
+/* Adjust navigation link position when header is scrolled */
+.header.scrolled .nav__link {
+    top: 10px;              /* Move links closer to top */
+}
+
+/* Navigation link underline effect */
+/* Pseudo-element for animated underline on hover */
+.nav__link::after {
+    content: '';              /* Empty content */
+    position: absolute;       /* Absolute positioning */
+    bottom: -2px;            /* Position below link */
+    left: 0;                 /* Start from left edge */
+    width: 0;                /* Initially no width */
+    height: 2px;             /* Thin underline */
+    background-color: #333;   /* Dark gray color */
+    transition: width 0.3s ease; /* Smooth width transition */
+}
+
+/* Navigation link hover effects */
+/* Hover state for navigation links */
+.nav__link:hover {
+    color: #333;             /* Maintain dark gray color on hover */
+}
+
+/* Expand underline on hover */
+.nav__link:hover::after {
+    width: 100%;             /* Full width underline */
+}
+
+/* Individual navigation link positioning */
+/* Specific horizontal positioning for each navigation link */
+.nav__menu li:nth-child(1) .nav__link {
+    left: 720px;            /* Position for "About Us" link */
+}
+
+.nav__menu li:nth-child(2) .nav__link {
+    left: 906px;            /* Position for "Our Services" link */
+}
+
+.nav__menu li:nth-child(3) .nav__link {
+    left: 1126px;           /* Position for "Contact Us" link */
+}
+
+.nav__menu li:nth-child(4) .nav__link {
+    left: 1331px;           /* Position for "Booking" link */
+}
+
+/* Large Desktop - Ensure all elements are visible by pushing inward */
+/* Media query for large screens to adjust navigation link positioning */
+@media (min-width: 1200px) {
+    .nav__menu li:nth-child(1) .nav__link {
+        left: 600px;        /* Adjusted position for large screens */
+    }
+    
+    .nav__menu li:nth-child(2) .nav__link {
+        left: 750px;        /* Adjusted position for large screens */
+    }
+    
+    .nav__menu li:nth-child(3) .nav__link {
+        left: 900px;        /* Adjusted position for large screens */
+    }
+    
+    .nav__menu li:nth-child(4) .nav__link {
+        left: 1050px;       /* Adjusted position for large screens */
+    }
+}
+
+/* Mobile hamburger menu toggle button */
+/* Hamburger menu button for mobile navigation */
+.nav__toggle {
+    display: none;           /* Hidden by default (desktop) */
+    flex-direction: column; /* Stack lines vertically */
+    cursor: pointer;        /* Pointer cursor on hover */
+}
+
+/* Hamburger menu lines */
+/* Individual lines of the hamburger menu */
+.nav__toggle span {
+    width: 25px;            /* Width of each line */
+    height: 3px;            /* Height of each line */
+    background-color: #333; /* Dark gray color */
+    margin: 3px 0;          /* Vertical spacing between lines */
+    transition: 0.3s;       /* Smooth transitions */
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+/* Hero section container */
+/* Main hero section with centered content and white background */
+.hero {
+    padding: 15rem 0 0.5rem;    /* Large top padding to account for fixed header */
+    background: white;           /* White background */
+    color: #333;                 /* Dark gray text */
+    min-height: 80vh;           /* Minimum viewport height */
+    display: flex;               /* Flexbox layout */
+    align-items: center;         /* Center items vertically */
+    position: relative;          /* Relative positioning for child elements */
+    width: 100%;                /* Full width */
+    justify-content: center;     /* Center content horizontally */
+}
+
+/* Hero content grid */
+/* Grid layout for hero content with two equal columns */
+.hero .container {
+    display: grid;                /* CSS Grid layout */
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 4rem;                   /* Space between columns */
+    align-items: center;         /* Center items vertically */
+    margin: 0 auto;             /* Center container horizontally */
+    max-width: 1200px;          /* Maximum width for readability */
+}
+
+/* Hero content area */
+.hero__content {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+}
+
+/* Hero image area */
+.hero__image {
+    order: 1;
+}
+
+/* Hero title styling */
+.hero__title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    color: #2c3e50;
+}
+
+/* Hero description text */
+.hero__description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #6c757d;
+}
+
+/* Learn More button */
+.hero__cta {
+    width: 265px;
+    height: 69px;
+    transform: rotate(0deg);
+    opacity: 0;
+    border-radius: 3px;
+    border-width: 2px;
+    background: #63575447; /* RGBA per hex with alpha */
+    border: 2px solid #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 559px;
+    left: 685px;
+    overflow: hidden;
+    text-decoration: none;
+    animation: fadeInUp 0.8s ease-out 1.4s forwards;
+}
+
+/* Learn More button text */
+.hero__cta-text {
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 26px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #000;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Learn More button hover effect */
+.hero__cta::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    transition: width 300ms ease;
+    z-index: 0;
+}
+
+.hero__cta:hover::before,
+.hero__cta:focus::before {
+    width: 100%;
+}
+
+/* Figma-specified hero headline */
+.hero__headline {
+    width: 772px;
+    height: 82px;
+    position: absolute;
+    top: 220px;
+    left: 675px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 60px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+}
+
+/* Typing caret anchored to the typed span so it stays in-place */
+.typing-active .typing__content {
+    position: relative;
+    display: inline-block;
+}
+
+.typing-active .typing__content::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: #000;
+    margin-left: 6px;
+    vertical-align: -0.15em;
+    animation: caret-blink 800ms step-end infinite;
+}
+
+/* Typing caret blink animation */
+@keyframes caret-blink {
+    0%, 50% { opacity: 1; }
+    50.1%, 100% { opacity: 0; }
+}
+
+/* Hero subtext container */
+.hero__subtext {
+    width: 762px;
+    height: 323px;
+    position: absolute;
+    top: 303px;
+    left: 675px;
+    transform: rotate(0deg);
+    opacity: 0;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: 0;
+    color: #000000;
+    text-align: left;
+    padding: 0 1em;
+    animation: fadeInUp 0.8s ease-out 0.8s forwards;
+}
+
+/* First paragraph styling */
+.hero__subtext--p1 {
+    top: 303px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out 1.0s forwards;
+}
+
+/* Second paragraph styling with spacing */
+.hero__subtext--p2 {
+    top: 450px; /* Moved down to create space between paragraphs */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out 1.2s forwards;
+}
+
+/* Hero image styling */
+.hero__image {
+    position: absolute;
+    top: 228px;
+    left: 200px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.hero__img {
+    width: 400px;
+    height: 400px;
+    position: static;
+    transform: translateY(50px);
+    opacity: 0;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: heroImageFadeIn 1.2s ease-out 0.5s forwards;
+}
+
+/* ========================================
+   ANIMATION KEYFRAMES (CONTINUED)
+   ======================================== */
+
+/* Hero image fade in and slide up animation */
+/* Keyframe animation for hero image entrance effect */
+@keyframes heroImageFadeIn {
+    0% {
+        opacity: 0;                        /* Start invisible */
+        transform: translateY(50px) scale(0.9); /* Start 50px down and 90% size */
+    }
+    100% {
+        opacity: 1;                        /* End fully visible */
+        transform: translateY(0) scale(1); /* End at normal position and full size */
+    }
+}
+
+/* Fade in up animation for text elements */
+/* Keyframe animation for text elements sliding up and fading in */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;                /* Start invisible */
+        transform: translateY(30px); /* Start 30px down */
+    }
+    100% {
+        opacity: 1;                /* End fully visible */
+        transform: translateY(0);  /* End at normal position */
+    }
+}
+
+/* ========================================
+   BUTTON STYLES
+   ======================================== */
+
+/* Base button styles */
+.btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Primary button style */
+.btn--primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn--primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Secondary button style */
+.btn--secondary {
+    background-color: transparent;
+    color: #3498db;
+    border: 2px solid #3498db;
+}
+
+.btn--secondary:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* About Us Button - Figma Specifications */
+.about-us-btn {
+    width: 108px;
+    height: 29px;
+    position: absolute;
+    top: 220px;
+    left: 631px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    background: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Our Services Button - Figma Specifications */
+.our-services-btn {
+    width: 150px;
+    height: 29px;
+    position: absolute;
+    top: 220px;
+    left: 817px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    background: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contact Us Button - Figma Specifications */
+.contact-us-btn {
+    width: 130px;
+    height: 29px;
+    position: absolute;
+    top: 220px;
+    left: 1037px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    background: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Booking Button - Figma Specifications */
+.booking-btn {
+    width: 95px;
+    height: 29px;
+    position: absolute;
+    top: 220px;
+    left: 1242px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    background: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========================================
+   SECTION STYLES
+   ======================================== */
+
+/* Base section styles */
+section {
+    padding: 4rem 0;
+}
+
+/* Section title styling */
+.section__title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+/* Section description styling */
+.section__description {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* About Section */
+.about {
+    background-color: #f8f9fa;
+}
+
+/* ========================================
+   EVENTS SECTION
+   ======================================== */
+
+/* Events grid layout */
+.events__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+/* Event card styling */
+.event__card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.event__card:hover {
+    transform: translateY(-5px);
+}
+
+/* Event image placeholder */
+.event__image {
+    width: 100%;
+    height: 200px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: #6c757d;
+}
+
+/* Event title styling */
+.event__title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+/* Event description styling */
+.event__description {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* ========================================
+   CONTACT SECTION
+   ======================================== */
+
+/* Contact section container */
+/* Contact section with grey background extending beyond viewport */
+.contact {
+    background-color: #ECECEC;       /* Light grey background */
+    padding: 2rem 0 0 0;            /* Top padding only */
+    min-height: calc(100vh - 200px); /* Minimum height calculation */
+    margin-top: 100px;              /* Top margin for positioning */
+    padding-top: 750px;             /* Large top padding for content spacing */
+    width: 120vw;                   /* 120% viewport width for extended background */
+    margin-left: calc(-60vw + 50%); /* Center the wider element */
+    padding-bottom: 0;              /* No bottom padding */
+    margin-bottom: 0;               /* No bottom margin */
+    display: flex;                  /* Flexbox layout */
+    justify-content: center;        /* Center content horizontally */
+    align-items: flex-start;        /* Align items to top */
+}
+
+/* Contact section container content */
+/* Container for contact section content with centered layout */
+.contact .container {
+    max-width: 1200px;        /* Maximum width for readability */
+    margin: 0 auto;          /* Center container horizontally */
+    padding: 0 20px;         /* Horizontal padding */
+    display: flex;           /* Flexbox layout */
+    flex-direction: column;  /* Stack items vertically */
+    align-items: center;     /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+}
+
+/* Contact section heading */
+.contact__heading {
+    width: 491px;
+    height: 98px;
+    position: absolute;
+    top: 773px;
+    left: 555px;
+    transform: rotate(0deg);
+    opacity: 0;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 60px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease-out 1.8s forwards;
+}
+
+/* Contact form input boxes */
+.contact__box {
+    width: 390px;
+    height: 92px;
+    position: absolute;
+    top: 871px;
+    left: 655px;
+    transform: rotate(0deg);
+    opacity: 1;
+    border-radius: 20px;
+    background: #D9D9D9;
+}
+
+.contact__box-2 {
+    width: 390px;
+    height: 92px;
+    position: absolute;
+    top: 871px;
+    left: 1115px;
+    transform: rotate(0deg);
+    opacity: 1;
+    border-radius: 20px;
+    background: #D9D9D9;
+}
+
+.contact__box-3 {
+    width: 850px;
+    height: 215px;
+    position: absolute;
+    top: 994px;
+    left: 655px;
+    transform: rotate(0deg);
+    opacity: 1;
+    border-radius: 20px;
+    background: #D9D9D9;
+}
+
+.contact__box-4 {
+    width: 850px;
+    height: 68px;
+    position: absolute;
+    top: 1233px;
+    left: 655px;
+    transform: rotate(0deg);
+    opacity: 1;
+    border-radius: 20px;
+    background: #D9D9D9;
+}
+
+/* Contact form labels (hidden on desktop) */
+.contact__label-first {
+    width: 126px;
+    height: 30px;
+    position: absolute;
+    top: 901px;
+    left: 685px;
+    transform: rotate(0deg);
+    opacity: 0;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    animation: fadeInUp 0.8s ease-out 2.1s forwards;
+}
+
+.contact__label-last {
+    width: 120px;
+    height: 30px;
+    position: absolute;
+    top: 901px;
+    left: 1175px;
+    transform: rotate(0deg);
+    opacity: 0;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #000000;
+    display: none;
+    animation: fadeInUp 0.8s ease-out 2.3s forwards;
+}
+
+.contact__label-message {
+    width: 398px;
+    height: 30px;
+    position: absolute;
+    top: 1024px;
+    left: 715px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #000000;
+    display: none;
+}
+
+/* Contact submit button */
+.contact__button {
+    width: 850px;
+    height: 68px;
+    position: absolute;
+    top: 1233px;
+    left: 655px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    color: #000000;
+    background: #D9D9D9;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transition: box-shadow 200ms ease;
+}
+
+/* Contact submit button hover effect */
+.contact__button:hover,
+.contact__button:focus {
+    outline: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Contact form alternative layout */
+.contact__form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Contact form input and textarea styling */
+.contact__form input,
+.contact__form textarea {
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.contact__form input:focus,
+.contact__form textarea:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Absolute-positioned inputs to sit inside the gray boxes */
+.contact__input {
+    position: absolute;
+    height: 92px;
+    padding: 0 24px;
+    border: none;
+    background: transparent;
+    font-family: 'Inria Serif', serif;
+    font-size: 24px;
+    color: #000;
+    border-radius: 20px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transition: box-shadow 200ms ease;
+    box-sizing: border-box;
+}
+
+.contact__input-first {
+    width: 390px;
+    height: 92px;
+    top: 871px;
+    left: 655px;
+}
+
+.contact__input-last {
+    width: 390px;
+    height: 92px;
+    top: 871px;
+    left: 1115px;
+}
+
+/* Contact textarea styling */
+.contact__textarea {
+    position: absolute;
+    width: 850px;
+    height: 215px;
+    top: 994px;
+    left: 655px;
+    resize: none;
+    padding: 24px 24px;
+    border: none;
+    background: transparent;
+    font-family: 'Inria Serif', serif;
+    font-size: 24px;
+    color: #000;
+    border-radius: 20px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transition: box-shadow 200ms ease;
+    box-sizing: border-box;
+}
+
+/* Input and textarea focus states */
+.contact__textarea:focus,
+.contact__input:focus {
+    outline: none;
+}
+
+/* Hover/focus outline fade in/out */
+.contact__input:hover,
+.contact__input:focus,
+.contact__textarea:hover,
+.contact__textarea:focus {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Contact map styling */
+.contact__map {
+    width: 481px;
+    height: 478px;
+    position: absolute;
+    top: 810px;
+    left: 137px;
+    transform: rotate(0deg);
+    opacity: 0;
+    border: 0;
+    border-radius: 20px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transition: box-shadow 200ms ease;
+    animation: fadeInUp 0.8s ease-out 1.6s forwards;
+}
+
+/* Contact map hover effect */
+.contact__map:hover,
+.contact__map:focus {
+    outline: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Contact CTA box styling */
+.contact__cta-box {
+    width: 850px;
+    height: 68px;
+    position: absolute;
+    top: 1183px;
+    left: 655px;
+    border-radius: 20px;
+    transform: rotate(0deg);
+    opacity: 1;
+    background: #D9D9D9;
+}
+
+/* Contact CTA text styling */
+.contact__cta-text {
+    width: 851px;
+    height: 68px;
+    position: absolute;
+    top: 1183px;
+    left: 655px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #000;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+/* Footer container */
+/* Footer with grey background matching contact section */
+.footer {
+    background-color: #ECECEC;        /* Light grey background */
+    color: #000;                     /* Black text */
+    text-align: center;              /* Center text */
+    padding: 2rem 0;                 /* Vertical padding */
+    margin-top: 0;                   /* No top margin */
+    width: 120vw;                    /* 120% viewport width for extended background */
+    margin-left: calc(-60vw + 50%);  /* Center the wider element */
+    padding-bottom: calc(2rem - 400px); /* Reduced bottom padding */
+}
+
+/* Footer text styling */
+.site-footer-text {
+    width: 500px;
+    height: 72px;
+    position: absolute;
+    top: 1401px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    font-family: 'Inria Serif', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #000;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablet and Mobile Hamburger Menu - All screens smaller than large desktop */
+@media (max-width: 1199px) {
+    /* Mobile navigation menu */
+    .nav__menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: left 0.3s ease;
+        z-index: 9999;
+        gap: 2rem;
+    }
+    
+    /* Active mobile menu */
+    .nav__menu.active {
+        left: 0;
+    }
+    
+    .nav__menu li {
+        margin: 0;
+    }
+    
+    /* Mobile navigation links */
+    .nav__link {
+        position: static;
+        font-size: 1.5rem;
+        padding: 1rem 2rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Mobile navigation link hover effects */
+    .nav__link:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+    }
+    
+    /* Mobile hamburger toggle button */
+    .nav__toggle {
+        display: flex;
+        z-index: 10000;
+        position: absolute;
+        top: 35px;
+        right: 20px;
+        transition: top 0.3s ease;
+    }
+    
+    /* Hamburger animation when scrolled */
+    .header.scrolled .nav__toggle {
+        top: 15px;
+    }
+    
+    /* Hamburger menu animations */
+    .nav__toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .nav__toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav__toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* Apply mobile layout to medium screens */
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .header {
+        height: 80px;
+    }
+    
+    .header.scrolled {
+        height: 60px;
+    }
+    
+    .logo {
+        width: 180px;
+        height: 180px;
+        top: 10px;
+        left: 50px;
+    }
+    
+    .header.scrolled .logo-title {
+        width: 180px;
+        height: 40px;
+        top: 10px;
+        left: 20px;
+    }
+    
+    .hero {
+        padding: 4rem 0 1rem;
+        min-height: 70vh;
+    }
+    
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .hero__content {
+        order: 2;
+        position: static;
+        justify-content: center;
+    }
+    
+    .hero__image {
+        order: 1;
+        position: static;
+        justify-content: center;
+    }
+    
+    .hero__img {
+        width: 280px;
+        height: 280px;
+        margin: 0 auto;
+        position: static;
+    }
+    
+    .hero__headline {
+        position: static;
+        width: 100%;
+        margin: 1rem 0;
+    }
+    
+    .hero__subtext {
+        position: static;
+        width: 100%;
+        margin: 1rem 0;
+    }
+    
+    /* Tight spacing for medium screen paragraphs */
+    .hero__subtext--p1 {
+        position: static;
+        margin-bottom: -12rem;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease-out 1.0s forwards;
+    }
+    
+    .hero__subtext--p2 {
+        position: static;
+        margin-bottom: 0.01rem;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease-out 1.2s forwards;
+    }
+    
+    /* Compact Learn More button positioning */
+    .hero__cta {
+        position: static;
+        margin: -12rem auto 0;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease-out 1.4s forwards;
+    }
+    
+    /* Contact section mobile layout */
+    .contact {
+        padding-top: 250px;
+        margin-top: -250px;
+    }
+    
+    .contact__heading {
+        position: static;
+        width: 100%;
+        font-size: 2.5rem;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .contact__map {
+        position: static;
+        width: 100%;
+        height: 300px;
+        margin-bottom: 2rem;
+    }
+    
+    /* Contact form elements - stretched out for medium screens */
+    .contact__box,
+    .contact__box-2,
+    .contact__box-3,
+    .contact__box-4 {
+        display: none; /* Hide the background boxes on medium screens */
+    }
+    
+    .contact__input,
+    .contact__textarea {
+        position: static;
+        width: 100%;
+        margin-bottom: 1.5rem;
+        padding: 1.2rem;
+        font-size: 18px; /* Slightly larger for medium screens */
+        background: #D9D9D9;
+        border: none;
+        border-radius: 20px;
+        font-family: 'Inria Serif', serif;
+        color: #000;
+    }
+    
+    .contact__button {
+        position: static;
+        width: 100%;
+        margin-top: 1.5rem;
+        padding: 1.2rem;
+        font-size: 18px; /* Slightly larger for medium screens */
+        background: #D9D9D9;
+        border: none;
+        border-radius: 20px;
+        color: #000;
+        font-family: 'Inria Serif', serif;
+        font-weight: 400;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .contact__button:hover {
+        background: #C9C9C9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .contact__button:active {
+        background: #B9B9B9;
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .contact__button:focus {
+        outline: none;
+        background: #C9C9C9;
+    }
+    
+    .contact__button.clicked {
+        background: #B9B9B9;
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Hide labels on medium screens */
+    .contact__label-first,
+    .contact__label-last,
+    .contact__label-message {
+        display: none; /* Hide the labels on medium screens */
+    }
+    
+    /* Footer positioning for medium screens */
+    .footer {
+        position: static;
+        margin-top: 0;
+        padding: 2rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .site-footer-text {
+        position: static;
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
+        margin-left: 20rem;
+        font-size: 14px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        word-wrap: break-word;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* Container padding for mobile */
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Header adjustments for mobile */
+    .header {
+        height: 80px;
+    }
+    
+    .header.scrolled {
+        height: 60px;
+    }
+    
+    /* Logo adjustments for mobile */
+    .logo {
+        width: 150px;
+        height: 107px;
+        top: 15px;
+        left: 20px;
+    }
+    
+    .header.scrolled .logo-title {
+        width: 200px;
+        height: 143px;
+        top: -40px;
+        left: 20px;
+    }
+    
+    /* Hero section mobile adjustments */
+    .hero {
+        padding: 10rem 0 2rem;
+        min-height: 100vh;
+    }
+    
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .hero__content {
+        order: 2;
+    }
+    
+    .hero__image {
+        order: 1;
+        position: static;
+        justify-content: center;
+    }
+    
+    .hero__img {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto;
+        position: static;
+    }
+    
+    .hero__headline {
+        position: static;
+        width: 100%;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero__subtext {
+        position: static;
+        width: 100%;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease-out 0.8s forwards;
+    }
+    
+    .hero__subtext--p1 {
+        position: static;
+        margin-bottom: -5rem;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease-out 1.0s forwards;
+    }
+    
+    .hero__subtext--p2 {
+        position: static;
+        margin-bottom: 0.01rem;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease-out 1.2s forwards;
+    }
+    
+    .hero__cta {
+        position: static;
+        margin: -10rem auto 0;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease-out 1.4s forwards;
+    }
+    
+    /* Fade in up animation keyframes */
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Contact section mobile adjustments */
+    .contact {
+        padding-top: 250px;
+        margin-top: -250px;
+    }
+    
+    .contact__heading {
+        position: static;
+        width: 100%;
+        font-size: 2.5rem;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .contact__map {
+        position: static;
+        width: 100%;
+        height: 300px;
+        margin-bottom: 2rem;
+    }
+    
+    .contact__box,
+    .contact__box-2,
+    .contact__box-3,
+    .contact__box-4 {
+        display: none; /* Hide the background boxes on mobile */
+    }
+    
+    .contact__input,
+    .contact__textarea {
+        position: static;
+        width: 100%;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        font-size: 16px; /* Prevents zoom on iOS */
+        background: #D9D9D9;
+        border: none;
+        border-radius: 20px;
+    }
+    
+    .contact__button {
+        position: static;
+        width: 100%;
+        margin-top: 1rem;
+        padding: 1rem;
+        font-size: 16px; /* Prevents zoom on iOS */
+        background: #D9D9D9;
+        border: none;
+        border-radius: 20px;
+        color: #000;
+        font-family: 'Inria Serif', serif;
+        font-weight: 400;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .contact__button:hover {
+        background: #C9C9C9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .contact__button:active {
+        background: #B9B9B9;
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .contact__button:focus {
+        outline: none;
+        background: #C9C9C9;
+    }
+    
+    .contact__button.clicked {
+        background: #B9B9B9;
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .contact__label-first,
+    .contact__label-last,
+    .contact__label-message {
+        display: none; /* Hide the labels on mobile */
+    }
+    
+    /* Footer positioning for mobile */
+    .footer {
+        position: static;
+        margin-top: 0;
+        padding: 2rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .site-footer-text {
+        position: static;
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
+        margin-left: 16rem;
+        font-size: 14px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        word-wrap: break-word;
+    }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+    /* Container padding for small mobile */
+    .container {
+        padding: 0 10px;
+    }
+    
+    /* Hero headline for small mobile */
+    .hero__headline {
+        font-size: 2rem;
+    }
+    
+    /* Hero subtext for small mobile */
+    .hero__subtext {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    /* Hero image for small mobile */
+    .hero__img {
+        width: 200px;
+        height: 200px;
+    }
+    
+    /* Contact heading for small mobile */
+    .contact__heading {
+        font-size: 2rem;
+    }
+    
+    /* Navigation links for small mobile */
+    .nav__link {
+        font-size: 1.3rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    /* Logo for small mobile */
+    .logo {
+        width: 120px;
+        height: 86px;
+    }
+}

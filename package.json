@@ -1,0 +1,13 @@
+{
+  "name": "figma-coding-challenge",
+  "version": "1.0.0",
+  "description": "Front-end implementation of Figma design for coding challenge",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 3000"
+  },
+  "keywords": ["figma", "frontend", "html", "css", "javascript"],
+  "author": "Your Name",
+  "license": "MIT"
+}
